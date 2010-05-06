@@ -1,0 +1,5 @@
+; $Id$
+name = Aegir XML-RPC Sign-Up (ax2)
+description = Sign up for websites managed by Aegir via XML-RPC. For this module to work, ax1 must be installed in your Aegir installation. 
+package = Aegir
+core = 6.x
