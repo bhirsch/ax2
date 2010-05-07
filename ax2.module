@@ -1,4 +1,7 @@
 <?php
+
+include_once('ax2.features.inc');
+
 /**
  * @file ax2.module
  *  XML-RPC server and XML-RPC client for Aegir XML-RPC Sign Up module.
@@ -31,32 +34,3 @@ function ax2_menu() {
 // xml-rpc client 
 //-------------------------------
 
-/**
- *  Get available platforms and corresponding node IDs.
- */
-function ax2_get_platforms($key) {
-  $valid_key = variable_get('ax2_api_key', FALSE);
-  $url = variable_get('ax2_ax1_url', NULL); 
-  $method = 'ax1.platforms'; 
-  $result = xmlrpc($url, $method, $key); 
-
-  return $result;
-} 
-
-/**
- * @return 
- *  List of available wildcard domains.
- */ 
-
-/**
- * @param
- *  $domain, string, requested domain name. 
- * 
- * @return
- *  Status of requested domain.
- */
-
-/**
- * Check to see if domain already exists.
- */
-.
