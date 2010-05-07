@@ -7,6 +7,10 @@ include_once('ax2.features.inc');
  *  XML-RPC server and XML-RPC client for Aegir XML-RPC Sign Up module.
  */
 
+//-------------------------------
+// implementation of hooks
+//-------------------------------
+
 /**
  * Implementation of hook_menu().
  */
@@ -25,6 +29,79 @@ function ax2_menu() {
 
   return $items;
 }
+
+/**
+ * Implementation of hook_perm().
+ */
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($node->type == 'website' && $op == 'insert') {
+    // create site nodes on Aegir
+    $title = $node->title;
+    $email = $node->field_website_email[0]['value'];
+    $client = variable_get('ax2_client', FALSE); 
+    // required fields
+    $site->title = $title; // domain
+    $site->client = ($client) ? $client : $email;
+    $site->platform = variable_get('ax2_platform', NULL); 
+    $site->profile = variable_get('ax2_profile', NULL); 
+    $site->aliases = variable_get('ax2_aliases', NULL); // TODO // array
+    // create site node
+    $key = variable_get('ax2_api_key', FALSE);
+    $url = variable_get('ax2_ax1_url', FALSE); 
+    $method_name = 'ax1.createSite'; // method for creating site nodes on Aegir
+    $response = xmlrpc($url, $method_name, $key, $site);
+dsm($response);
+    // update website nodes with 'site node created'
+    if ($response == 'success') {
+      $node->field_website_site_node_created[0]['value'] = 1;
+      drupal_set_message('You will receive an email when your website is ready.');
+    } else {
+      dsm($response);
+      // TODO Add queue here. Failures should stay in queue to be processed later (e.g. on cron). 
+      }
+  }
+}
+
+/**
+ * Implementation of hook_cron()
+ */
+  // TODO check for created sites
+    // update website nodes with 'site created'
+/*
+//snippets from original:
+
+    // get websites waiting to be processed
+    $result = db_query("SELECT n.nid, title, field_website_email_value "
+                    ."FROM {node} n "
+                    ."JOIN {content_type_website} w ON w.nid = n.nid "
+                    ."WHERE type = 'website' AND field_website_site_node_created_value = 0");
+
+        db_query("UPDATE {content_type_website} "
+                ."SET field_website_site_node_created_value = 1 "
+                ."WHERE nid = %d ", $nid);
+// */
+
+/**
+ * Implementation of hook_form_alter().
+ * 
+ * Access control for administrative fields.
+ */
+
+//------------------------------
+// Ax2 
+//------------------------------
+
+/**
+ * 
+ */
+
+/**
+ *
+ */
 
 //-------------------------------
 // xml-rpc server 

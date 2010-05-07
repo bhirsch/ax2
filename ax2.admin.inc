@@ -64,6 +64,14 @@ function ax2_admin_settings() {
     // explain $url must be set before this can be enabled
     '#description' => (!$url) ? t("you must save the path to aegir's xmlrpc.php file before you can select an available profile") : t('install profile'),
   );
+  $form['ax2_client'] = array(
+    '#title' => t('Client (user 1)'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('ax2_client', NULL),
+    '#description' => t('Email address to be used in Aegir "client" field. '
+                       ."This will be user number 1. Leave blank to use "
+                       ."email provided by end-user here. "),
+  );
 
   return system_settings_form($form);
 }
