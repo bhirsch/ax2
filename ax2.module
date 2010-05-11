@@ -38,7 +38,10 @@ function ax2_menu() {
  * Implementation of hook_nodeapi().
  */
 function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-  if ($node->type == 'website' && $op == 'insert') {
+
+// TODO Validate. Make sure requested domain doesn't already exist.
+
+  if ($node->type == 'website' && $op == 'presave') {
     // create site nodes on Aegir
     $title = $node->title;
     $email = $node->field_website_email[0]['value'];
@@ -55,14 +58,14 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
     $url = variable_get('ax2_ax1_url', FALSE); 
     $method_name = 'ax1.createSite'; // method for creating site nodes on Aegir
     $response = xmlrpc($url, $method_name, $key, $site);
-dsm($response);
     // update website nodes with 'site node created'
     if ($response == 'success') {
+// TODO Log record in watchdog.
       $node->field_website_site_node_created[0]['value'] = 1;
       drupal_set_message('You will receive an email when your website is ready.');
     } else {
-      dsm($response);
       // TODO Add queue here. Failures should stay in queue to be processed later (e.g. on cron). 
+      // TODO Don't forget to update field_website_site_node_created when job in queue is processed.
       }
   }
 }
@@ -97,7 +100,68 @@ dsm($response);
 // xml-rpc server 
 //-------------------------------
 
-//-------------------------------
-// xml-rpc client 
-//-------------------------------
+/**
+ * Implementation of hook_xmlrpc().
+ */
+function ax2_xmlrpc() {
+  $methods['ax2.getUserInfo'] = 'xmls_ax2_getuserinfo';
+  
+  return $methods;
+}
 
+/**
+ * xml-rpc callback for method ax2.getUserInfo.
+ * 
+ * Set 'website created' field to TRUE.
+ * 
+ * At this stage a website sign up 
+ * is reaching the end of it's life cycle. 
+ * That is, a user requested a website (here, through 
+ * the ax2 module), that website was created 
+ * by Aegir (by the ax1 module), and now 
+ * the user who requested the webiste is being
+ * notified about their new account. At this stage
+ * ax2 sets the field 'website created' (field_website_created_value)
+ * to TRUE. 
+ * 
+ * @param
+ *  $key, base64_encode()ed API key
+ * 
+ * @param
+ *  $domain, string, this is the $base_url for the website
+ *  calling this method.
+ * 
+ * @return
+ *  $user, an array of user info to be used to create a new user 
+ *  (user number 2) in the new website.
+ */
+function xmls_ax2_getuserinfo($key, $domain) {
+  $key = base64_decode($key);
+  $valid_key = variable_get('ax2_api_key', FALSE);
+  if ($key == $valid_key) {
+    // get requested info 
+    $result = db_query("SELECT n.nid, "
+                      ."field_website_email_value AS mail, "
+                      ."field_website_contact_name_value AS name "
+                      ."FROM {node} n "
+                      ."JOIN {content_type_website} w ON n.nid = w.nid "
+                      ."WHERE title = '%s' ", $domain);
+    // note: there should only be one result.
+    // todo Add some sort of validation or error handling here?  
+    while ($row = db_fetch_array($result)){
+      $user = array();
+      $user['mail'] = $row['mail'];
+      $user['name'] = $row['name']; 
+      $nid = $row['nid'];
+    }
+
+    // Update website as 'created'.
+    $node = node_load($nid);
+    $node->field_website_created[0]['value'] = 0;
+    node_save($node); 
+
+    return $user;
+  } else {
+    return 'invalid key';
+  }
+}

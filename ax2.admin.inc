@@ -26,17 +26,6 @@ function ax2_admin_settings() {
     '#description' => t('e.g. http://aegir.example.com/xmlrpc.php'),
   ); 
 
-  // Select Aegir user to be designated as "client" 
-  $client['ax2_client'] = array(
-    '#title' => t('client'), 
-    '#type' => 'textfield',
-    '#default_value' => variable_get('ax2_client', user_load(1)->mail),
-    '#description' => t('Leave this blank to make end-user '
-                       .'user #1. Note: Be careful. This may '
-                       .'not be advisable for a shared hosting '
-                       .'environment.'),
-    // TODO If blank use user's email for client.
-  );
   // Select which platform and profile users can sign up for.
   // @todo Enable administrator to set up different on-click-installs for different content types
   // @todo Or enable end-user to select from different install profiles
@@ -65,13 +54,18 @@ function ax2_admin_settings() {
     // explain $url must be set before this can be enabled
     '#description' => (!$url) ? t("you must save the path to aegir's xmlrpc.php file before you can select an available profile") : t('install profile'),
   );
+  // Select Aegir user to be designated as "client" 
   $form['ax2_client'] = array(
     '#title' => t('Client (user 1)'),
     '#type' => 'textfield',
-    '#default_value' => variable_get('ax2_client', NULL),
+    '#default_value' => variable_get('ax2_client', user_load(1)->mail),
     '#description' => t('Email address to be used in Aegir "client" field. '
-                       ."This will be user number 1. Leave blank to use "
-                       ."email provided by end-user here. "),
+                       ."This will be user number 1. "
+                       .'Leave this blank to make end-user '
+                       .'user #1. Note: Be careful. This is '
+                       .'not advisable for a shared hosting '
+                       .'environment.'),
+    // TODO If blank use user's email for client.
   );
 
   return system_settings_form($form);
