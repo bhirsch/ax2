@@ -41,6 +41,7 @@ function ax2_admin_settings() {
   // @todo Enable administrator to set up different on-click-installs for different content types
   // @todo Or enable end-user to select from different install profiles
   $method_name = 'ax1.platforms'; 
+  $key = base64_encode($key); // encode key before sending it
   $platforms = xmlrpc($url, $method_name, $key);
   $form['ax2_platform'] = array(
     '#title' => t('platform'), 
