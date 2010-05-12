@@ -41,7 +41,9 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
 // TODO Validate. Make sure requested domain doesn't already exist.
 
-  if ($node->type == 'website' && $op == 'presave') {
+  // If Aegir site node has not been created, create it.
+  $site_node = $node->field_website_site_node_created[0]['value'];
+  if (!$site_node && $node->type == 'website' && $op == 'presave') {
     // create site nodes on Aegir
     $title = $node->title;
     $email = $node->field_website_email[0]['value'];
@@ -157,7 +159,7 @@ function xmls_ax2_getuserinfo($key, $domain) {
 
     // Update website as 'created'.
     $node = node_load($nid);
-    $node->field_website_created[0]['value'] = 0;
+    $node->field_website_created[0]['value'] = 1;
     node_save($node); 
 
     return $user;
