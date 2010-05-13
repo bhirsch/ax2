@@ -67,6 +67,16 @@ function ax2_admin_settings() {
                        .'environment.'),
     // TODO If blank use user's email for client.
   );
+  // wildcard domains
+  $form['ax2_wildcard_domains'] = array(
+    '#title' => t('Wildcard Domains'),
+    '#type' => 'textarea',
+    '#default_area' => variable_get('ax2_wildcard_domains', NULL),
+    '#description' => t('Enter a comma separated list of wildcard '
+                       .'domains available.'),
+  );
+
+// CONTINUE HERE
 
   return system_settings_form($form);
 }
