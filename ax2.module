@@ -33,45 +33,69 @@ function ax2_menu() {
 /**
  * Implementation of hook_perm().
  */
+function ax2_perm() {
+  return array('administer ax', 'access site sign up');
+}
 
 /**
  * Implementation of hook_nodeapi().
  */
 function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
-
-// TODO Validate. Make sure requested domain doesn't already exist.
-
-  // If Aegir site node has not been created, create it.
+  // verify we're trying to create a new website 
   $site_node = $node->field_website_site_node_created[0]['value'];
-  if (!$site_node && $node->type == 'website' && $op == 'presave') {
-    // create site nodes on Aegir
-    $title = $node->title;
-    $email = $node->field_website_email[0]['value'];
-    $client = variable_get('ax2_client', FALSE); 
-    // required fields
-    $site->title = $title; // domain
-    $site->client = ($client) ? $client : $email;
-    $site->platform = variable_get('ax2_platform', NULL); 
-    $site->profile = variable_get('ax2_profile', NULL); 
-    $site->aliases = variable_get('ax2_aliases', NULL); // TODO // array
-    // create site node
+  if (!$site_node && $node->type == 'website') {
+
+    // xmlrpc credentials
     $key = variable_get('ax2_api_key', FALSE);
     $key = base64_encode($key); // encode key before sending it
     $url = variable_get('ax2_ax1_url', FALSE); 
-    $method_name = 'ax1.createSite'; // method for creating site nodes on Aegir
-    $response = xmlrpc($url, $method_name, $key, $site);
-    // update website nodes with 'site node created'
-    if ($response == 'success') {
-// TODO Log record in watchdog.
-      $node->field_website_site_node_created[0]['value'] = 1;
-      $node->field_website_site_node_created[0]['value'] = 1;
-      $mail = $node->field_website_email[0]['value'];
-      $txt = t('Your new website is ready. Further instructions have been emailed to !mail.', array('!mail' => $mail));
-      drupal_set_message($txt);
-    } else {
-      // todo Add job to queue here. Failures should stay in queue to be processed later (e.g. on cron?). 
-      // todo Don't forget to update field_website_site_node_created when job in queue is processed.
-      }
+
+    switch($op) {
+      case 'validate': 
+        // Validate. Make sure requested domain doesn't already exist.
+        $method_name = 'ax1.domain';
+        $response = xmlrpc($url, $method_name, $key, $node->title);
+        if (!$response) {
+          // validation failed, domain name is already taken
+          $name = 'title';
+          $message = t('Sorry. The domain @title is already taken. '
+                      .'Please select another.', array('@title' => $node->title));
+          form_set_error($name, $message);
+        } else if ($response === 'invalid key') {
+          // TODO watchdog/notification
+          return 'invalid key';
+        }  
+      break;
+ 
+      case 'presave':
+        // create a site node on Aegir
+        $title = $node->title;
+        $email = $node->field_website_email[0]['value'];
+        $client = variable_get('ax2_client', FALSE); 
+        // required fields
+        $site->title = $title; // domain
+        $site->client = ($client) ? $client : $email;
+        $site->platform = variable_get('ax2_platform', NULL); 
+        $site->profile = variable_get('ax2_profile', NULL); 
+        $site->aliases = variable_get('ax2_aliases', NULL); // TODO // array
+        // create site node
+        $method_name = 'ax1.createSite'; // method for creating site nodes on Aegir
+        $response = xmlrpc($url, $method_name, $key, $site);
+        // update website nodes with 'site node created'
+        if ($response == 'success') {
+        // TODO Log record in watchdog.
+          $node->field_website_site_node_created[0]['value'] = 1;
+          $node->field_website_site_node_created[0]['value'] = 1;
+          $mail = $node->field_website_email[0]['value'];
+          $txt = t('Your new website is ready. Further instructions '
+                  .'have been emailed to !mail.', array('!mail' => $mail));
+          drupal_set_message($txt);
+        } else {
+          // todo Add job to queue here. Failures should stay in queue to be processed later (e.g. on cron?). 
+          // todo Don't forget to update field_website_site_node_created when job in queue is processed.
+        } 
+      break;
+    }
   }
 }
 
