@@ -52,16 +52,61 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
     switch($op) {
       case 'validate': 
-        // Validate. Make sure requested domain doesn't already exist.
+        // Validate domain and aliases...
+        $domain = $node->title;
+        $aliases = explode("\n", $node->field_website_alias[0]['value']);
+
+        // Check for spaces
+        $x = explode(' ', $domain);
+        if ($x[1]) {
+          // validation failed
+          $name = 'title';
+          $message = t('Domain names may not include spaces.');
+          form_set_error($name, $message);
+        }
+        foreach ($aliases as $alias) {
+          $x = explode(' ', $alias);
+          if ($x[1]) {
+            // validation failed
+            $name = 'field_website_alias';
+            $message = t('Aliases may not include spaces.');
+            form_set_error($name, $message);
+          }
+        } 
+
+// Check for weird characters 
+
+        // CONTINUE HERE // $x = strpos(       
+
+// Check for more than one sws alias
+// Check for more than one sws domain in domain + alias
+// strip out www and http
+
+
+        // Make sure requested domain and aliases don't already exist.
         $method_name = 'ax1.domain';
-        $response = xmlrpc($url, $method_name, $key, $node->title);
-        if (!$response) {
+        $response = xmlrpc($url, $method_name, $key, $node->title, $aliases);
+        // domain fails
+        if (!$response['domain']) {
           // validation failed, domain name is already taken
           $name = 'title';
-          $message = t('Sorry. The domain @title is already taken. '
-                      .'Please select another.', array('@title' => $node->title));
+          $message = $response['message'][0];
           form_set_error($name, $message);
-        } else if ($response === 'invalid key') {
+        }
+        // alias fails
+        if (!$response['alias']) {
+          // validation failed, alias name(s) already taken
+          $name = 'field_website_alias';
+          $message = ''; // reset message incase there's something here already
+          $i = ($response['domain']) ? 0 : 1;
+          $j = count($response['message']); 
+          while($i < $j) {
+            $message .= $response['message'][$i];
+            $i++;
+          }
+          form_set_error($name, $message);
+        }
+        if ($response === 'invalid key') {
           // TODO watchdog/notification
           return 'invalid key';
         }  
@@ -107,7 +152,35 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 function ax2_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'website_node_form') {
     dsm($form);
-    $form['title']['#description'] = t('description here');
+    $form['title']['#description'] = t('Enter your domain '
+                          .'(website address) here. If you own '
+                          .'a domain like example.com or janeforsenate.com, '
+                          .'enter this here. If you would like to '
+                          .'use a free Stars with Stripes domain, '
+                          .'choose a website address like this: <br/>'
+                          .'<ul>'
+                          .'<li>'
+                          .'something.starswithstripes.com <br/>'
+                          .'</li>'
+                          .'<li>'
+                          .'anything.starswithstripes.com <br/>'
+                          .'</li>'
+                          .'<li>'
+                          .'yourname.starswithstripes.com <br/>'
+                          .'</li>'
+                          .'</ul>'
+                          .'Please note: It can take up to 48 hours for '
+                          .'your own website address to come online. Until then '
+                          .'you can use an alias '
+                          .'to start building your website immediately.');
+                          
+    //$form['title']['#description'] = t('Enter the URL '
+      //                    .'(website address) you want here. '
+        //                  .'Example: <br/> something.starswithstripes.com <br/>'
+          //                .'anything.starswithstripes.com <br/>'
+            //              .'yourname.starswithstripes.com <br/>');
+    $form['field_website_site_node_created']['#access'] = user_access('aminister_nodes');
+    $form['field_website_created']['#access'] = user_access('aminister_nodes');
   }
 }
 
