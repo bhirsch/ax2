@@ -54,7 +54,8 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
       case 'validate': 
         // Validate domain and aliases...
         $domain = $node->title;
-        $aliases = explode("\n", $node->field_website_alias[0]['value']);
+        $aliases = $node->field_website_alias[0]['value'];
+        $aliases = ($aliases) ? explode("\n", $aliases) : FALSE;
 
         // Check for spaces
         $x = explode(' ', $domain);
@@ -114,11 +115,8 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           }
         }
    
-// CONTINUE HERE
-// STRING LENGTH VALIDATION ISN'T WORKING
-
         // Check length
-        if (strlen($domain >= 63)) {
+        if (strlen($domain) >= 63) {
           // validation failed
           $name = 'title';
           $message = t('Domain names and aliases can only include letters, '
@@ -128,16 +126,16 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           form_set_error($name, $message);
         }
         foreach($aliases as $alias) {
-          if (strlen($domain >= 63)) {
+          if (strlen($alias) >= 63) {
             // validation failed
             $name = 'field_website_alias';
             $message = t('Domain names and aliases can only include letters, '
                       .'numbers, and hyphens. They cannot begin or end '
                       .'with a hyphen ("-"). And they must be less than '
                       .'63 characters.');
+          form_set_error($name, $message);
           }
         }
-// CONTINUE HERE
 
         // Check for more than one sws domain in domain + alias
         $sws_count = 0; 
@@ -181,7 +179,8 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           form_set_error($name, $message);
         }
         if ($response === 'invalid key') {
-          // TODO watchdog/notification
+          // watchdog/notification
+          watchdog('ax2', 'invalid api key');
           return 'invalid key';
         }  
       break;
