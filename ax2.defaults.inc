@@ -6,6 +6,74 @@
 function _ax2_content_default_fields() {
   $fields = array();
 
+  // Exported field: field_website_alias
+  $fields[] = array(
+    'field_name' => 'field_website_alias',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'label' => array(
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'text',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'text',
+    'active' => '1',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'rows' => '3',
+      'size' => 60,
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+          '_error_element' => 'default_value_widget][field_website_alias][0][value',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Alias/Aliases (optional)',
+      'weight' => '10',
+      'description' => '<p>Please enter one domain per line. For example:</p>
+<ul>
+<li>jane.starswithstripes.com</li>
+<li>janesmithforsenate.com</li>
+<li>janeforsenate.net</li>
+<li>janeforsenate.org</li>
+</ul>',
+      'type' => 'text_textarea',
+      'module' => 'text',
+    ),
+  );
+
   // Exported field: field_website_contact_name
   $fields[] = array(
     'field_name' => 'field_website_contact_name',
@@ -60,8 +128,8 @@ function _ax2_content_default_fields() {
         ),
       ),
       'default_value_php' => NULL,
-      'label' => 'Name',
-      'weight' => '-4',
+      'label' => 'Website Owner\'s Name',
+      'weight' => '11',
       'description' => '',
       'type' => 'text_textfield',
       'module' => 'text',
@@ -123,7 +191,7 @@ function _ax2_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Website created',
-      'weight' => '7',
+      'weight' => '19',
       'description' => '',
       'type' => 'optionwidgets_onoff',
       'module' => 'optionwidgets',
@@ -185,10 +253,72 @@ function _ax2_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Email',
-      'weight' => '-3',
+      'weight' => '12',
       'description' => '',
       'type' => 'text_textfield',
       'module' => 'text',
+    ),
+  );
+
+  // Exported field: field_website_email_setup
+  $fields[] = array(
+    'field_name' => 'field_website_email_setup',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'label' => array(
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'number_integer',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'number',
+    'active' => '1',
+    'prefix' => '',
+    'suffix' => '',
+    'min' => '',
+    'max' => '',
+    'allowed_values' => '0|
+1|<strong>Email set up.</strong> (Example: jane@janeforsenate.com, info@janeforsenate.com, press@janeforsenate.com, etc.)',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => 0,
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Email set up',
+      'weight' => '5',
+      'description' => '',
+      'type' => 'optionwidgets_onoff',
+      'module' => 'optionwidgets',
     ),
   );
 
@@ -255,72 +385,10 @@ function _ax2_content_default_fields() {
       'year_range' => '0:+1',
       'label_position' => 'above',
       'label' => 'General Election Date',
-      'weight' => 0,
+      'weight' => '16',
       'description' => '',
       'type' => 'date_popup',
       'module' => 'date',
-    ),
-  );
-
-  // Exported field: field_website_party
-  $fields[] = array(
-    'field_name' => 'field_website_party',
-    'type_name' => 'website',
-    'display_settings' => array(
-      'label' => array(
-        'format' => 'above',
-        'exclude' => 0,
-      ),
-      'teaser' => array(
-        'format' => 'default',
-        'exclude' => 0,
-      ),
-      'full' => array(
-        'format' => 'default',
-        'exclude' => 0,
-      ),
-      '4' => array(
-        'format' => 'default',
-        'exclude' => 0,
-      ),
-      '2' => array(
-        'format' => 'default',
-        'exclude' => 0,
-      ),
-      '3' => array(
-        'format' => 'default',
-        'exclude' => 0,
-      ),
-      'token' => array(
-        'format' => 'default',
-        'exclude' => 0,
-      ),
-    ),
-    'widget_active' => '1',
-    'type' => 'text',
-    'required' => '0',
-    'multiple' => '0',
-    'module' => 'text',
-    'active' => '1',
-    'text_processing' => '0',
-    'max_length' => '',
-    'allowed_values' => '',
-    'allowed_values_php' => '',
-    'widget' => array(
-      'rows' => 5,
-      'size' => '60',
-      'default_value' => array(
-        '0' => array(
-          'value' => '',
-          '_error_element' => 'default_value_widget][field_website_party][0][value',
-        ),
-      ),
-      'default_value_php' => NULL,
-      'label' => 'Party',
-      'weight' => '1',
-      'description' => '',
-      'type' => 'text_textfield',
-      'module' => 'text',
     ),
   );
 
@@ -379,7 +447,7 @@ function _ax2_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Phone',
-      'weight' => '-2',
+      'weight' => '13',
       'description' => '',
       'type' => 'text_textfield',
       'module' => 'text',
@@ -449,7 +517,7 @@ function _ax2_content_default_fields() {
       'year_range' => '0:+1',
       'label_position' => 'above',
       'label' => 'Primary Election Date',
-      'weight' => '-1',
+      'weight' => '15',
       'description' => '',
       'type' => 'date_popup',
       'module' => 'date',
@@ -511,9 +579,123 @@ function _ax2_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Aegir site node created',
-      'weight' => '6',
+      'weight' => '18',
       'description' => '',
       'type' => 'optionwidgets_onoff',
+      'module' => 'optionwidgets',
+    ),
+  );
+
+  // Exported field: field_website_state
+  $fields[] = array(
+    'field_name' => 'field_website_state',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'label' => array(
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'text',
+    'required' => '1',
+    'multiple' => '0',
+    'module' => 'text',
+    'active' => '1',
+    'text_processing' => '0',
+    'max_length' => '',
+    'allowed_values' => 'Alabama
+Alaska
+American Samoa
+Arizona
+Arkansas
+California
+Colorado
+Connecticut
+Delaware
+District of Columbia
+Florida
+Georgia
+Guam
+Hawaii
+Idaho
+Illinois
+Indiana
+Iowa
+Kansas
+Kentucky
+Louisiana
+Maine
+Maryland
+Massachusetts
+Michigan
+Minnesota
+Mississippi
+Missouri
+Montana
+Nebraska
+Nevada
+New Hampshire
+New Jersey
+New Mexico
+New York
+North Carolina
+North Dakota
+Northern Marianas Islands
+Ohio
+Oklahoma
+Oregon
+Pennsylvania
+Puerto Rico
+Rhode Island
+South Carolina
+South Dakota
+Tennessee
+Texas
+Utah
+Vermont
+Virginia
+Virgin Islands
+Washington
+West Virginia
+Wisconsin
+Wyoming',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => '',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'State',
+      'weight' => '14',
+      'description' => '',
+      'type' => 'optionwidgets_select',
       'module' => 'optionwidgets',
     ),
   );
@@ -521,12 +703,14 @@ function _ax2_content_default_fields() {
   // Translatables
   array(
     t('Aegir site node created'),
+    t('Alias/Aliases (optional)'),
     t('Email'),
+    t('Email set up'),
     t('General Election Date'),
-    t('Name'),
-    t('Party'),
     t('Phone'),
     t('Primary Election Date'),
+    t('State'),
+    t('Website Owner\'s Name'),
     t('Website created'),
   );
 
@@ -546,6 +730,66 @@ function _ax2_ctools_plugin_api() {
 }
 
 /**
+ * Helper to implementation of hook_fieldgroup_default_groups().
+ */
+function _ax2_fieldgroup_default_groups() {
+  $groups = array();
+
+  // Exported group: group_extras
+  $groups[] = array(
+    'group_type' => 'standard',
+    'type_name' => 'website',
+    'group_name' => 'group_extras',
+    'label' => 'Optional Extras',
+    'settings' => array(
+      'form' => array(
+        'style' => 'fieldset_collapsed',
+        'description' => '',
+      ),
+      'display' => array(
+        'description' => 'Please note: Please check the boxes below if you would like a Stars with Stripes sales representative to contact you about any of these additional services. ',
+        'teaser' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'full' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '4' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '2' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '3' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'token' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'label' => 'above',
+      ),
+    ),
+    'weight' => '17',
+    'fields' => array(
+      '0' => 'field_website_email_setup',
+    ),
+  );
+
+  // Translatables
+  array(
+    t('Optional Extras'),
+  );
+
+  return $groups;
+}
+
+/**
  * Helper to implementation of hook_strongarm().
  */
 function _ax2_strongarm() {
@@ -555,11 +799,11 @@ function _ax2_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'content_extra_weights_website';
   $strongarm->value = array(
-    'title' => '-5',
-    'revision_information' => '3',
-    'comment_settings' => '5',
-    'menu' => '2',
-    'path' => '4',
+    'title' => '9',
+    'revision_information' => '21',
+    'comment_settings' => '23',
+    'menu' => '20',
+    'path' => '22',
   );
 
   $export['content_extra_weights_website'] = $strongarm;

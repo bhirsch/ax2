@@ -225,11 +225,9 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 function ax2_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'website_node_form') {
     dsm($form);
-    $form['title']['#description'] = t('Enter your domain '
-                          .'(website address) here. If you own '
-                          .'a domain like example.com or janeforsenate.com, '
-                          .'enter this here. If you would like to '
-                          .'use a free Stars with Stripes domain, '
+    $form['title']['#description'] = t('Enter your domain here (example.com or '
+                          .'janeforsenate.com). '
+                          .'To use a free Stars with Stripes domain, '
                           .'choose a website address like this: <br/>'
                           .'<ul>'
                           .'<li>'
@@ -241,11 +239,7 @@ function ax2_form_alter(&$form, &$form_state, $form_id) {
                           .'<li>'
                           .'yourname.starswithstripes.com <br/>'
                           .'</li>'
-                          .'</ul>'
-                          .'Please note: It can take up to 48 hours for '
-                          .'your own website address to come online. Until then '
-                          .'you can use an alias '
-                          .'to start building your website immediately.');
+                          .'</ul>');
                           
     //$form['title']['#description'] = t('Enter the URL '
       //                    .'(website address) you want here. '

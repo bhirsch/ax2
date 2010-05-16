@@ -19,6 +19,15 @@ function ax2_ctools_plugin_api() {
 }
 
 /**
+ * Implementation of hook_fieldgroup_default_groups().
+ */
+function ax2_fieldgroup_default_groups() {
+  module_load_include('inc', 'ax2', 'ax2.defaults');
+  $args = func_get_args();
+  return call_user_func_array('_ax2_fieldgroup_default_groups', $args);
+}
+
+/**
  * Implementation of hook_node_info().
  */
 function ax2_node_info() {
