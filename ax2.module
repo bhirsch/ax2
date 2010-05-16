@@ -26,6 +26,15 @@ function ax2_menu() {
     'type' => MENU_NORMAL_ITEM,
     'file' => 'ax2.admin.inc', 
   );  
+  $items['ax/thankyou'] = array(
+    'title' => t('Thank You'), 
+    'description' => t('Thank you for your interest '
+                      ."in Stars with Stripes' campaign "
+                      ."tools. "),
+    'page callback' => 'ax2_thankyou_page',
+    'access arguments' => array('access content'), 
+    'type' => MENU_NORMAL_ITEM,
+  );  
 
   return $items;
 }
@@ -65,6 +74,7 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           $message = t('Domain names may not include spaces.');
           form_set_error($name, $message);
         }
+        if ($aliases) {
         foreach ($aliases as $alias) {
           $x = explode(' ', $alias);
           if ($x[1]) {
@@ -73,7 +83,7 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
             $message = t('Aliases may not include spaces.');
             form_set_error($name, $message);
           }
-        } 
+        }}
 
         // Check for weird characters 
         // strip out www and http
@@ -101,6 +111,7 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
                         .'63 characters.');
             form_set_error($name, $message);
           } 
+          if ($aliases) {
           foreach($aliases as $alias) {
             $x = strpos($alias, $char);
             if ($x) {
@@ -112,7 +123,7 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
                         .'63 characters.');
               form_set_error($name, $message);
             }
-          }
+          }}
         }
    
         // Check length
@@ -125,6 +136,7 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
                       .'63 characters.');
           form_set_error($name, $message);
         }
+        if ($aliases) {
         foreach($aliases as $alias) {
           if (strlen($alias) >= 63) {
             // validation failed
@@ -135,18 +147,19 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
                       .'63 characters.');
           form_set_error($name, $message);
           }
-        }
+        }}
 
         // Check for more than one sws domain in domain + alias
         $sws_count = 0; 
         if (strpos($domain, 'starswithstripes')) {
           $sws_count++;
         }
+        if ($aliases) {
         foreach ($aliases as $alias) {
           if (strpos($alias, 'starswithstripes')) {
             $sws_count++;
           }
-        }
+        }}
         if ($sws_count > 1) {
           // validation failed
           $name = 'field_website_alias';
@@ -224,7 +237,6 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
  */
 function ax2_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'website_node_form') {
-    dsm($form);
     $form['title']['#description'] = t('Enter your domain here (example.com or '
                           .'janeforsenate.com). '
                           .'To use a free Stars with Stripes domain, '
@@ -248,6 +260,7 @@ function ax2_form_alter(&$form, &$form_state, $form_id) {
             //              .'yourname.starswithstripes.com <br/>');
     $form['field_website_site_node_created']['#access'] = user_access('aminister_nodes');
     $form['field_website_created']['#access'] = user_access('aminister_nodes');
+    $form['#redirect'] = array('ax/thankyou');
   }
 }
 
@@ -309,14 +322,35 @@ function xmls_ax2_getuserinfo($key, $domain) {
       $user['name'] = $row['name']; 
       $nid = $row['nid'];
     }
-
-    // Update website as 'created'.
-    $node = node_load($nid);
-    $node->field_website_created[0]['value'] = 1;
-    node_save($node); 
-
-    return $user;
+   
+    // Note: If a someone installs a site manually on Aegir
+    // w/ ax3 built into the install profile, this method
+    // gets called, even though the site wasn't created by ax2. 
+    // Check for no results to the query (no nid).
+    // Return false, to tell the install profile not to create
+    // a user 2.
+    if ($nid) {
+      // Update website as 'created'.
+      $node = node_load($nid);
+      $node->field_website_created[0]['value'] = 1;
+      node_save($node); 
+      return $user;
+    } else {
+      // the website being installed was not created by ax2
+      return FALSE;
+    }
   } else {
     return 'invalid key';
   }
+}
+
+/**
+ * Callback for hook_menu() ax/thankyou.
+ * 
+ * Display a thank you page to user after
+ * creating a new website. 
+ */
+function ax2_thankyou_page() {
+  $output = variable_get('ax2_thankyou_page', NULL);
+  return check_markup($output);
 }

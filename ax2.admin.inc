@@ -65,8 +65,13 @@ function ax2_admin_settings() {
                        .'user #1. Note: Be careful. This is '
                        .'not advisable for a shared hosting '
                        .'environment.'),
-    // TODO If blank use user's email for client.
+    // todo If blank use user's email for client....?
   );
+  /**
+   * todo Enable administrator to enter allowable
+   * domains here. Right now this is 
+   * hard-coded into ax2_nodeapi($op = validate).
+   *
   // wildcard domains
   $form['ax2_wildcard_domains'] = array(
     '#title' => t('Wildcard Domains'),
@@ -75,8 +80,13 @@ function ax2_admin_settings() {
     '#description' => t('Enter a comma separated list of wildcard '
                        .'domains available.'),
   );
-
-// CONTINUE HERE
+  // */
+  $form['ax2_thankyou_page'] = array(
+    '#title' => t('Thank You Page'),
+    '#type' => 'textarea',
+    '#default_value' => variable_get('ax2_thankyou_page', t('thank you')),
+    '#description' => t('HTML to display on thank you page.'),
+  );
 
   return system_settings_form($form);
 }
