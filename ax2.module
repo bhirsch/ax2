@@ -114,6 +114,9 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           }
         }
    
+// CONTINUE HERE
+// STRING LENGTH VALIDATION ISN'T WORKING
+
         // Check length
         if (strlen($domain >= 63)) {
           // validation failed
