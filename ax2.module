@@ -74,14 +74,85 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           }
         } 
 
-// Check for weird characters 
+        // Check for weird characters 
+        // strip out www and http
+        if (substr($domain, 0, 7) == 'http://') {
+          $domain = substr($domain, 7);  // strip out http://
+          $node->title = $domain;
+        } 
+        if (substr($domain, 0, 4) == 'www.') {
+          $domain = substr($domain, 4);  // strip out www.
+          $node->title = $domain;
+        }
+        // now find weird characters 
+        $chars = array('~','`','!','@','#','$','%','^',
+                            '&','*','(',')','+','=','<','>',
+                            '/','?',',','[','{',']','}','|',
+                            '\\','_');
+        foreach($chars as $char) {
+          $x = strpos($domain, $char);
+          if ($x) {
+            // validation failed
+            $name = 'title';
+            $message = t('Domain names and aliases can only include letters, '
+                        .'numbers, and hyphens. They cannot begin or end '
+                        .'with a hyphen ("-"). And they must be less than '
+                        .'63 characters.');
+            form_set_error($name, $message);
+          } 
+          foreach($aliases as $alias) {
+            $x = strpos($alias, $char);
+            if ($x) {
+              // validation failed
+              $name = 'field_website_alias';
+              $message = t('Domain names and aliases can only include letters, '
+                        .'numbers, and hyphens. They cannot begin or end '
+                        .'with a hyphen ("-"). And they must be less than '
+                        .'63 characters.');
+              form_set_error($name, $message);
+            }
+          }
+        }
+   
+        // Check length
+        if (strlen($domain >= 63)) {
+          // validation failed
+          $name = 'title';
+          $message = t('Domain names and aliases can only include letters, '
+                      .'numbers, and hyphens. They cannot begin or end '
+                      .'with a hyphen ("-"). And they must be less than '
+                      .'63 characters.');
+          form_set_error($name, $message);
+        }
+        foreach($aliases as $alias) {
+          if (strlen($domain >= 63)) {
+            // validation failed
+            $name = 'field_website_alias';
+            $message = t('Domain names and aliases can only include letters, '
+                      .'numbers, and hyphens. They cannot begin or end '
+                      .'with a hyphen ("-"). And they must be less than '
+                      .'63 characters.');
+          }
+        }
+// CONTINUE HERE
 
-        // CONTINUE HERE // $x = strpos(       
-
-// Check for more than one sws alias
-// Check for more than one sws domain in domain + alias
-// strip out www and http
-
+        // Check for more than one sws domain in domain + alias
+        $sws_count = 0; 
+        if (strpos($domain, 'starswithstripes')) {
+          $sws_count++;
+        }
+        foreach ($aliases as $alias) {
+          if (strpos($alias, 'starswithstripes')) {
+            $sws_count++;
+          }
+        }
+        if ($sws_count > 1) {
+          // validation failed
+          $name = 'field_website_alias';
+          $message = t("We're happy to share our starswithstripes domains "
+                      ."with you. But please only use one per website.");
+          form_set_error($name, $message);
+        }
 
         // Make sure requested domain and aliases don't already exist.
         $method_name = 'ax1.domain';
@@ -117,12 +188,12 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
         $title = $node->title;
         $email = $node->field_website_email[0]['value'];
         $client = variable_get('ax2_client', FALSE); 
+        $site->aliases = $node->field_website_alias[0]['value']; 
         // required fields
         $site->title = $title; // domain
         $site->client = ($client) ? $client : $email;
         $site->platform = variable_get('ax2_platform', NULL); 
         $site->profile = variable_get('ax2_profile', NULL); 
-        $site->aliases = variable_get('ax2_aliases', NULL); // TODO // array
         // create site node
         $method_name = 'ax1.createSite'; // method for creating site nodes on Aegir
         $response = xmlrpc($url, $method_name, $key, $site);
