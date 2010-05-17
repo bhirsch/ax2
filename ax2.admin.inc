@@ -55,6 +55,8 @@ function ax2_admin_settings() {
     '#description' => (!$url) ? t("you must save the path to aegir's xmlrpc.php file before you can select an available profile") : t('install profile'),
   );
   // Select Aegir user to be designated as "client" 
+  /**
+   * todo
   $form['ax2_client'] = array(
     '#title' => t('Client (user 1)'),
     '#type' => 'textfield',
@@ -67,6 +69,7 @@ function ax2_admin_settings() {
                        .'environment.'),
     // todo If blank use user's email for client....?
   );
+  // */
   /**
    * todo Enable administrator to enter allowable
    * domains here. Right now this is 
