@@ -11,9 +11,10 @@ function _ax2_content_default_fields() {
     'field_name' => 'field_website_alias',
     'type_name' => 'website',
     'display_settings' => array(
+      'weight' => '10',
+      'parent' => '',
       'label' => array(
         'format' => 'above',
-        'exclude' => 0,
       ),
       'teaser' => array(
         'format' => 'default',
@@ -74,14 +75,77 @@ function _ax2_content_default_fields() {
     ),
   );
 
-  // Exported field: field_website_contact_name
+  // Exported field: field_website_buildout
   $fields[] = array(
-    'field_name' => 'field_website_contact_name',
+    'field_name' => 'field_website_buildout',
     'type_name' => 'website',
     'display_settings' => array(
       'label' => array(
         'format' => 'above',
         'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'number_integer',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'number',
+    'active' => '1',
+    'prefix' => '',
+    'suffix' => '',
+    'min' => '',
+    'max' => '',
+    'allowed_values' => '0|
+1|<strong>Website Buildout</strong> - Have Stars with Stripes build your website. We\'ll send you a checklist. Then you send us back content and we\'ll put it all together for you. ($1,000)',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => 0,
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Build out',
+      'weight' => '7',
+      'description' => '',
+      'type' => 'optionwidgets_onoff',
+      'module' => 'optionwidgets',
+    ),
+  );
+
+  // Exported field: field_website_contact_name
+  $fields[] = array(
+    'field_name' => 'field_website_contact_name',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'weight' => '11',
+      'parent' => '',
+      'label' => array(
+        'format' => 'above',
       ),
       'teaser' => array(
         'format' => 'default',
@@ -141,9 +205,10 @@ function _ax2_content_default_fields() {
     'field_name' => 'field_website_created',
     'type_name' => 'website',
     'display_settings' => array(
+      'weight' => '19',
+      'parent' => '',
       'label' => array(
         'format' => 'above',
-        'exclude' => 0,
       ),
       'teaser' => array(
         'format' => 'default',
@@ -191,7 +256,69 @@ function _ax2_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Website created',
-      'weight' => '19',
+      'weight' => '20',
+      'description' => '',
+      'type' => 'optionwidgets_onoff',
+      'module' => 'optionwidgets',
+    ),
+  );
+
+  // Exported field: field_website_development
+  $fields[] = array(
+    'field_name' => 'field_website_development',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'label' => array(
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'number_integer',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'number',
+    'active' => '1',
+    'prefix' => '',
+    'suffix' => '',
+    'min' => '',
+    'max' => '',
+    'allowed_values' => '0|
+1|<strong>Custom website development</strong> - Have an idea for a flashy new multimedia tool? Want to integrate your website with a voter database, CRM, and blast email program, or automate campaign finance reporting? Request a quote. ($500 - $5,000)',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => 0,
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Custom Development',
+      'weight' => '9',
       'description' => '',
       'type' => 'optionwidgets_onoff',
       'module' => 'optionwidgets',
@@ -203,9 +330,10 @@ function _ax2_content_default_fields() {
     'field_name' => 'field_website_email',
     'type_name' => 'website',
     'display_settings' => array(
+      'weight' => '12',
+      'parent' => '',
       'label' => array(
         'format' => 'above',
-        'exclude' => 0,
       ),
       'teaser' => array(
         'format' => 'default',
@@ -265,9 +393,10 @@ function _ax2_content_default_fields() {
     'field_name' => 'field_website_email_setup',
     'type_name' => 'website',
     'display_settings' => array(
+      'weight' => '5',
+      'parent' => 'group_extras',
       'label' => array(
         'format' => 'above',
-        'exclude' => 0,
       ),
       'teaser' => array(
         'format' => 'default',
@@ -305,7 +434,7 @@ function _ax2_content_default_fields() {
     'min' => '',
     'max' => '',
     'allowed_values' => '0|
-1|<strong>Email set up.</strong> (Example: jane@janeforsenate.com, info@janeforsenate.com, press@janeforsenate.com, etc.)',
+1|<strong>Email set up</strong> - Use Google Apps (Gmail) to manage campaign email, for example: jane@janeforsenate.com, info@janeforsenate.com, press@janeforsenate.com, etc. ($125)',
     'allowed_values_php' => '',
     'widget' => array(
       'default_value' => array(
@@ -327,9 +456,10 @@ function _ax2_content_default_fields() {
     'field_name' => 'field_website_general_election',
     'type_name' => 'website',
     'display_settings' => array(
+      'weight' => '16',
+      'parent' => '',
       'label' => array(
         'format' => 'above',
-        'exclude' => 0,
       ),
       'teaser' => array(
         'format' => 'default',
@@ -392,14 +522,140 @@ function _ax2_content_default_fields() {
     ),
   );
 
-  // Exported field: field_website_phone
+  // Exported field: field_website_graphic_design
   $fields[] = array(
-    'field_name' => 'field_website_phone',
+    'field_name' => 'field_website_graphic_design',
     'type_name' => 'website',
     'display_settings' => array(
       'label' => array(
         'format' => 'above',
         'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'number_integer',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'number',
+    'active' => '1',
+    'prefix' => '',
+    'suffix' => '',
+    'min' => '',
+    'max' => '',
+    'allowed_values' => '0|
+1|<strong>Graphic Design</strong> - Work with a Stars with Stripes graphic designer to create custom design elements or a full custom design for your website. Request a quote. ($500 - $5,000)',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => 0,
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Graphic Design',
+      'weight' => '8',
+      'description' => '',
+      'type' => 'optionwidgets_onoff',
+      'module' => 'optionwidgets',
+    ),
+  );
+
+  // Exported field: field_website_payment
+  $fields[] = array(
+    'field_name' => 'field_website_payment',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'label' => array(
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'number_integer',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'number',
+    'active' => '1',
+    'prefix' => '',
+    'suffix' => '',
+    'min' => '',
+    'max' => '',
+    'allowed_values' => '1|Primary Promotion
+2|Basic Subscription (yearly)
+3|Basic Subscription (monthly)',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => '1',
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Options',
+      'weight' => '25',
+      'description' => '',
+      'type' => 'optionwidgets_select',
+      'module' => 'optionwidgets',
+    ),
+  );
+
+  // Exported field: field_website_phone
+  $fields[] = array(
+    'field_name' => 'field_website_phone',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'weight' => '13',
+      'parent' => '',
+      'label' => array(
+        'format' => 'above',
       ),
       'teaser' => array(
         'format' => 'default',
@@ -459,9 +715,10 @@ function _ax2_content_default_fields() {
     'field_name' => 'field_website_primary_election',
     'type_name' => 'website',
     'display_settings' => array(
+      'weight' => '15',
+      'parent' => '',
       'label' => array(
         'format' => 'above',
-        'exclude' => 0,
       ),
       'teaser' => array(
         'format' => 'default',
@@ -529,9 +786,10 @@ function _ax2_content_default_fields() {
     'field_name' => 'field_website_site_node_created',
     'type_name' => 'website',
     'display_settings' => array(
+      'weight' => '18',
+      'parent' => '',
       'label' => array(
         'format' => 'above',
-        'exclude' => 0,
       ),
       'teaser' => array(
         'format' => 'default',
@@ -579,7 +837,7 @@ function _ax2_content_default_fields() {
       ),
       'default_value_php' => NULL,
       'label' => 'Aegir site node created',
-      'weight' => '18',
+      'weight' => '19',
       'description' => '',
       'type' => 'optionwidgets_onoff',
       'module' => 'optionwidgets',
@@ -591,9 +849,10 @@ function _ax2_content_default_fields() {
     'field_name' => 'field_website_state',
     'type_name' => 'website',
     'display_settings' => array(
+      'weight' => '14',
+      'parent' => '',
       'label' => array(
         'format' => 'above',
-        'exclude' => 0,
       ),
       'teaser' => array(
         'format' => 'default',
@@ -700,16 +959,146 @@ Wyoming',
     ),
   );
 
+  // Exported field: field_website_tos
+  $fields[] = array(
+    'field_name' => 'field_website_tos',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'label' => array(
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'number_integer',
+    'required' => '1',
+    'multiple' => '0',
+    'module' => 'number',
+    'active' => '1',
+    'prefix' => '',
+    'suffix' => '',
+    'min' => '',
+    'max' => '',
+    'allowed_values' => '0|
+1|I have read and agree to Stars with Stripes\' <a href="http://starswithstripes.org/terms-service">Terms of Service</a>',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => 0,
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Terms of Service',
+      'weight' => '26',
+      'description' => '',
+      'type' => 'optionwidgets_onoff',
+      'module' => 'optionwidgets',
+    ),
+  );
+
+  // Exported field: field_website_training
+  $fields[] = array(
+    'field_name' => 'field_website_training',
+    'type_name' => 'website',
+    'display_settings' => array(
+      'label' => array(
+        'format' => 'above',
+        'exclude' => 0,
+      ),
+      'teaser' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '4' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '2' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      '3' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => array(
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+    'widget_active' => '1',
+    'type' => 'number_integer',
+    'required' => '0',
+    'multiple' => '0',
+    'module' => 'number',
+    'active' => '1',
+    'prefix' => '',
+    'suffix' => '',
+    'min' => '',
+    'max' => '',
+    'allowed_values' => '0|
+1|<strong>Training</strong> - In two two-hour trainings, we will teach you everything you need to know to manage your website efficiently and safely, and keep it looking great throughout the campaign. ($500)',
+    'allowed_values_php' => '',
+    'widget' => array(
+      'default_value' => array(
+        '0' => array(
+          'value' => 0,
+        ),
+      ),
+      'default_value_php' => NULL,
+      'label' => 'Training',
+      'weight' => '6',
+      'description' => '',
+      'type' => 'optionwidgets_onoff',
+      'module' => 'optionwidgets',
+    ),
+  );
+
   // Translatables
   array(
     t('Aegir site node created'),
     t('Alias/Aliases (optional)'),
+    t('Build out'),
+    t('Custom Development'),
     t('Email'),
     t('Email set up'),
     t('General Election Date'),
+    t('Graphic Design'),
+    t('Options'),
     t('Phone'),
     t('Primary Election Date'),
     t('State'),
+    t('Terms of Service'),
+    t('Training'),
     t('Website Owner\'s Name'),
     t('Website created'),
   );
@@ -743,7 +1132,7 @@ function _ax2_fieldgroup_default_groups() {
     'label' => 'Optional Extras',
     'settings' => array(
       'form' => array(
-        'style' => 'fieldset_collapsed',
+        'style' => 'fieldset',
         'description' => '',
       ),
       'display' => array(
@@ -775,15 +1164,67 @@ function _ax2_fieldgroup_default_groups() {
         'label' => 'above',
       ),
     ),
-    'weight' => '17',
+    'weight' => '18',
     'fields' => array(
       '0' => 'field_website_email_setup',
+      '1' => 'field_website_training',
+      '2' => 'field_website_buildout',
+      '3' => 'field_website_graphic_design',
+      '4' => 'field_website_development',
+    ),
+  );
+
+  // Exported group: group_payment
+  $groups[] = array(
+    'group_type' => 'standard',
+    'type_name' => 'website',
+    'group_name' => 'group_payment',
+    'label' => 'Payment, Promotions, and Terms',
+    'settings' => array(
+      'form' => array(
+        'style' => 'fieldset',
+        'description' => '',
+      ),
+      'display' => array(
+        'description' => '',
+        'teaser' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'full' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '4' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '2' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        '3' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'token' => array(
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'label' => 'above',
+      ),
+    ),
+    'weight' => '17',
+    'fields' => array(
+      '0' => 'field_website_payment',
+      '1' => 'field_website_tos',
     ),
   );
 
   // Translatables
   array(
     t('Optional Extras'),
+    t('Payment, Promotions, and Terms'),
   );
 
   return $groups;
@@ -800,10 +1241,10 @@ function _ax2_strongarm() {
   $strongarm->name = 'content_extra_weights_website';
   $strongarm->value = array(
     'title' => '9',
-    'revision_information' => '21',
-    'comment_settings' => '23',
-    'menu' => '20',
-    'path' => '22',
+    'revision_information' => '22',
+    'comment_settings' => '24',
+    'menu' => '21',
+    'path' => '23',
   );
 
   $export['content_extra_weights_website'] = $strongarm;
