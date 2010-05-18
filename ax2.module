@@ -161,7 +161,14 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
         // TODO add validation to prevent starswithstripes.org
 
-        /*
+        /**
+         * todo We no longer have this limitation, that the
+         * site needs to be created at one of our domains.
+         * but this seems like the sort of thing we should 
+         * be able to easily validate for and toggle 
+         * on or off on the admin page.
+         *
+         *
         // Domain must be a starswithstripes.com subdomain
         if (!strpos($domain, 'starswithstripes.com')) {
           $name = 'title';
@@ -339,6 +346,7 @@ function ax2_xmlrpc() {
  *  $user, an array of user info to be used to create a new user 
  *  (user number 2) in the new website.
  */
+// TODO CONTINUE HERE make this getinfo more generally, including info about domain and alias
 function xmls_ax2_getuserinfo($key, $domain) {
   $key = base64_decode($key);
   $valid_key = variable_get('ax2_api_key', FALSE);
