@@ -315,7 +315,7 @@ function ax2_form_alter(&$form, &$form_state, $form_id) {
  * Implementation of hook_xmlrpc().
  */
 function ax2_xmlrpc() {
-  $methods['ax2.getUserInfo'] = 'xmls_ax2_getuserinfo';
+  $methods['ax2.getInfo'] = 'xmls_ax2_getinfo';
   
   return $methods;
 }
@@ -346,13 +346,13 @@ function ax2_xmlrpc() {
  *  $user, an array of user info to be used to create a new user 
  *  (user number 2) in the new website.
  */
-// TODO CONTINUE HERE make this getinfo more generally, including info about domain and alias
-function xmls_ax2_getuserinfo($key, $domain) {
+function xmls_ax2_getinfo($key, $domain) {
   $key = base64_decode($key);
   $valid_key = variable_get('ax2_api_key', FALSE);
   if ($key == $valid_key) {
     // get requested info 
-    $result = db_query("SELECT n.nid, "
+    $result = db_query("SELECT n.nid, title, "
+                      ."field_website_alias_value AS alias, "
                       ."field_website_email_value AS mail, "
                       ."field_website_contact_name_value AS name "
                       ."FROM {node} n "
@@ -361,9 +361,12 @@ function xmls_ax2_getuserinfo($key, $domain) {
     // note: there should only be one result.
     // todo Add some sort of validation or error handling here?  
     while ($row = db_fetch_array($result)){
-      $user = array();
-      $user['mail'] = $row['mail'];
-      $user['name'] = $row['name']; 
+      $info = array();
+      $info['user']['mail'] = check_plain($row['mail']);
+      $info['user']['name'] = check_plain($row['name']); 
+      $info['domain'] = check_plain($row['title']);
+      $aliases = check_plain($row['alias']);
+      $info['alias'] = explode("\n", $aliases);
       $nid = $row['nid'];
     }
    
@@ -378,7 +381,7 @@ function xmls_ax2_getuserinfo($key, $domain) {
       $node = node_load($nid);
       $node->field_website_created[0]['value'] = 1;
       node_save($node); 
-      return $user;
+      return $info;
     } else {
       // the website being installed was not created by ax2
       return FALSE;
