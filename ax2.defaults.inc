@@ -63,13 +63,7 @@ function _ax2_content_default_fields() {
       'default_value_php' => NULL,
       'label' => 'Alias/Aliases (optional)',
       'weight' => '10',
-      'description' => '<p>Please enter one domain per line. For example:</p>
-<ul>
-<li>jane.starswithstripes.com</li>
-<li>janesmithforsenate.com</li>
-<li>janeforsenate.net</li>
-<li>janeforsenate.org</li>
-</ul>',
+      'description' => 'Please enter one domain alias per line. See step #2 above for further instructions.',
       'type' => 'text_textarea',
       'module' => 'text',
     ),
@@ -620,7 +614,7 @@ function _ax2_content_default_fields() {
     ),
     'widget_active' => '1',
     'type' => 'number_integer',
-    'required' => '0',
+    'required' => '1',
     'multiple' => '0',
     'module' => 'number',
     'active' => '1',
@@ -635,7 +629,7 @@ function _ax2_content_default_fields() {
     'widget' => array(
       'default_value' => array(
         '0' => array(
-          'value' => '1',
+          'value' => '',
         ),
       ),
       'default_value_php' => NULL,

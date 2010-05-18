@@ -159,6 +159,19 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           }
         }}
 
+        // Domain must be a starswithstripes.com subdomain
+        if (!strpos($domain, 'starswithstripes.com')) {
+          $name = 'title';
+          $message = t('Your domain must be a subdomain of '
+                      .'starswithstripes.com. For example: '
+                      .'example.starswithstripes.com, '
+                      .'johndoe.starswithstripes.com, etc. '
+                      .'Other website addresses, like example.com '
+                      .'and johndoe.com, can be specified under '
+                      .'Alias/Aliases.');
+          form_set_error($name, $message);
+        }
+
         // Check for more than one sws domain in domain + alias
         $sws_count = 0; 
         if (strpos($domain, 'starswithstripes')) {
@@ -228,8 +241,9 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           $node->field_website_site_node_created[0]['value'] = 1;
           $node->field_website_site_node_created[0]['value'] = 1;
           $mail = $node->field_website_email[0]['value'];
-          $txt = t('Your new website is ready. Further instructions '
-                  .'have been emailed to !mail.', array('!mail' => $mail));
+          $txt = t('Your new website will be ready soon. '
+                  .'Further instructions '
+                  .'will be emailed to !mail.', array('!mail' => $mail));
           drupal_set_message($txt);
         } else {
           // todo Add job to queue here. Failures should stay in queue to be processed later (e.g. on cron?). 
@@ -247,10 +261,8 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
  */
 function ax2_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'website_node_form') {
-    $form['title']['#description'] = t('Enter your domain here (example.com or '
-                          .'janeforsenate.com). '
-                          .'To use a free Stars with Stripes domain, '
-                          .'choose a website address like this: <br/>'
+    $form['title']['#description'] = t('Choose your starswithstripes.com '
+                          .'domain here. For example: '
                           .'<ul>'
                           .'<li>'
                           .'something.starswithstripes.com <br/>'
