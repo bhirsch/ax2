@@ -70,7 +70,7 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
                       .'of Service.');
           form_set_error($name, $message);
         }
- 
+
         // Validate domain and aliases...
         $domain = $node->title;
         $aliases = $node->field_website_alias[0]['value'];
@@ -159,8 +159,6 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
           }
         }}
 
-        // TODO add validation to prevent starswithstripes.org
-
         /**
          * todo We no longer have this limitation, that the
          * site needs to be created at one of our domains.
@@ -185,20 +183,38 @@ function ax2_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
         // Check for more than one sws domain in domain + alias
         $sws_count = 0; 
-        if (strpos($domain, 'starswithstripes')) {
+        if (strpos($domain, '.starswithstripes.com')
+           || strpos($domain, '.starswithstripes.net')) {
           $sws_count++;
         }
         if ($aliases) {
         foreach ($aliases as $alias) {
-          if (strpos($alias, 'starswithstripes')) {
+          if (strpos($alias, '.starswithstripes.com')
+             || strpos($alias, '.starswithstripes.net')) {
             $sws_count++;
           }
         }}
+        // One sws domain per website please.
         if ($sws_count > 1) {
           // validation failed
           $name = 'field_website_alias';
-          $message = t("We're happy to share our starswithstripes domains "
+          $message = t("We're happy to share our starswithstripes.com "
+                      ."and starswithstripes.net domains "
                       ."with you. But please only use one per website.");
+          form_set_error($name, $message);
+        }
+        // Make sure each website has at least one sws domain or alias.
+        if ($sws_count == 0) {
+          // validation failed
+          $name = 'field_website_alias';
+          $message = t("You must have at least one "
+                      ."starswithstripes.com "
+                      ."or starswithstripes.net domain, "
+                      ."even if you are only going to use " 
+                      ."it temporarily. "
+                      ."Please use something like: "
+                      ."example.starswithstripes.com or "
+                      ."something.starswithstripes.net.");
           form_set_error($name, $message);
         }
 
