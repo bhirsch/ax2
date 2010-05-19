@@ -309,14 +309,14 @@ function ax2_form_alter(&$form, &$form_state, $form_id) {
     //  t() shouldn't have HTML in it. And styles really shouldn't be inline like this either. 
     // Payment plan
     $form['field_website_payment']['#description'] = t('<div style="font-size:125%;"> '
-."<br/>Payment Plans and Promotional Offers: 
+."<br/>Pricing: 
 <ul>
 
-<li style='margin:12px;'><strong>Primary Promotion</strong>: No payment is due for your new website until after the primary election. Return your website free or charge any day through the week after the primary. Note: If you wish to maintain your website after the primary, a $1,060 payment for one-year of hosting and maintenance will be due within two weeks of the primary. Your subscription begins the day you create your website.</li>
+<li style='margin:12px;'><strong>Primary Website</strong>: No payment is due for your new websites until after the primary election. Return your website free or charge any day through the week after the primary. Note: If you wish to maintain your website after the primary, a $1,060 payment for one-year of hosting and maintenance will be due within two weeks of the primary. Your one-year subscription begins the when you create your website.</li>
 
-<li style='margin:12px;'><strong>Basic Subscription (yearly)</strong>: One year website subscription including hosting, maintenance and upgrades. $1,060 billed annually.</li>
+<li style='margin:12px;'><strong>General Subscription (yearly)</strong>: One year website subscription including hosting, maintenance and upgrades. $1,060 billed annually.</li>
 
-<li style='margin:12px'><strong>Basic Subscription (monthly)</strong>: One year website subscription including hosting, maintenance and upgrades. $100 per month billed monthly.</li>
+<li style='margin:12px'><strong>General Subscription (monthly)</strong>: One year website subscription including hosting, maintenance and upgrades. $100 per month billed monthly.</li>
 
 </ul>"
 .'</div>');
